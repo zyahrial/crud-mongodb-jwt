@@ -9,7 +9,8 @@ use Firebase\JWT\ExpiredException;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
-
+use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
+use Illuminate\Support\Facades\Auth;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -113,41 +114,20 @@ class AuthController extends BaseController
         }
     }
 
-    public function logout(Request $request)
+        public function check()
     {
-
-        try {
-        JWT::setToken($token)->invalidate();
-
-        } catch (JWTException $exception) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Sorry, the user cannot be logged out'
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-        // try {
-        //     JWT::$leeway = 1; // $leeway in seconds
-        //     $data = JWT::decode($token, $key, array('HS256'));
-        //     return $data;
-        //     var_dump($data);
-
-        // } catch (\Exception $e) {
-        //     return FALSE;
-        // }
-
-        //     return response()->json([
-        //         'success' => true,
-        //         'message' => $data
-        //     ]);
-
+        return response()->json(auth()->user());
     }
 
-     public function invalidate(Token $token)
+    public function refresh()
     {
-        if (! $this->blacklistEnabled) {
-            throw new JWTException('You must have the blacklist enabled to invalidate a token.');
-        }
-
-        return $this->blacklist->add($this->decode($token));
+        return $this->respondWithToken(auth()->refresh());
     }
+        public function logout()
+    {
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
 }

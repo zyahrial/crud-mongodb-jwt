@@ -99,6 +99,7 @@ $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
 
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register('Sentry\Laravel\ServiceProvider');
 
 
 $app->withEloquent();
@@ -118,6 +119,7 @@ $app->withEloquent();
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
+	require __DIR__ . '/../app/Http/routes.php';
     require __DIR__.'/../routes/web.php';
 });
 

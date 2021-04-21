@@ -13,9 +13,10 @@ use App\Http\Controllers\AuthController;
 | and give it the Closure to call when that URI is requested.
 |
 */
- 
+$router->group(['middleware' => 'auth'], function () use ($router) {
 $router->get('/', function () use ($router) {
     return $router->app->version();
+});
 });
 
 
@@ -23,7 +24,7 @@ $router->group(['prefix' => 'auth'], function () use ($router) {
        // Matches "/api/register
        $router->post('register', 'AuthController@register');
        $router->post('login', 'AuthController@authenticate');
-       $router->post('logout', 'AuthController@logout');
+
 });
        $router->post('invalidate', 'AuthController@invalidate');
 
@@ -38,6 +39,8 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
        $router->post('auth/logout', 'AuthController@logout');
+      $router->post('auth/refresh', 'AuthController@refresh');
+      $router->post('auth/check', 'AuthController@check');
 });
 
 //testunit route
@@ -46,3 +49,9 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('test/product/{_id}',  ['uses' => 'ProductController@show']);
     $router->patch('test/product/{_id}',  ['uses' => 'ProductController@update']);
     $router->patch('test/product/delete/{_id}',  ['uses' => 'ProductController@destroy']);
+
+
+    $router->post('reqres/register',  ['uses' => 'ReqresController@register']);
+    $router->post('reqres/login',  ['uses' => 'ReqresController@login']);
+
+    $router->get('BillDetails',  ['uses' => 'BillDetailsController@index']);
