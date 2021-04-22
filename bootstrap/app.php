@@ -59,6 +59,7 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('swagger-lume'); 
 
 $app->withFacades();
 
@@ -100,7 +101,7 @@ $app->register(Jenssegers\Mongodb\MongodbServiceProvider::class);
 
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register('Sentry\Laravel\ServiceProvider');
-
+$app->register(\SwaggerLume\ServiceProvider::class);
 
 $app->withEloquent();
 
@@ -119,8 +120,8 @@ $app->withEloquent();
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-	require __DIR__ . '/../app/Http/routes.php';
     require __DIR__.'/../routes/web.php';
 });
 
 return $app;
+

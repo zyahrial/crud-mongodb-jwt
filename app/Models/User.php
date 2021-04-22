@@ -11,6 +11,27 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
+
+/**
+ * Class User
+ * @property string $name
+ * @property string $email
+* @property string $password
+
+ * @package App\Models
+ * @OA\Schema(
+ *     schema="PostRequest",
+ *     type="object",
+ *     title="User",
+ *     required={"name", "email", "password"},
+ *     properties={
+ *         @OA\Property(property="name", type="string"),
+ *         @OA\Property(property="email", type="string"),
+ *         @OA\Property(property="password", type="string")
+ *     }
+ * )
+ */
+
 class User extends Eloquent implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
 

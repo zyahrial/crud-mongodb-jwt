@@ -16,6 +16,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class AuthController extends BaseController 
 {
+
     /**
      * The request instance.
      *
@@ -74,7 +75,9 @@ class AuthController extends BaseController
         // Verify the password and generate the token
         if (Hash::check($this->request->input('password'), $user->password)) {
             return response()->json([
-                'token' => $this->jwt($user)
+                // 'token' => $this->jwt($user)
+                'token' => auth()->login($user)
+
             ], 200);
         }
         // Bad Request response

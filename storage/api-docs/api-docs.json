@@ -1,0 +1,70 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/v1/user/account/validate": {
+            "get": {
+                "summary": "validates an account",
+                "operationId": "accountValidate",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Validation Response"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Product": {
+                "title": "User",
+                "required": [
+                    "_id"
+                ],
+                "properties": {
+                    "_id": {
+                        "description": "Class Product",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "PostRequest": {
+                "title": "User",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Class User",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "Class User",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "Class User",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
